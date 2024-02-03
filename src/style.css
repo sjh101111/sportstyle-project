@@ -1,0 +1,375 @@
+body {
+    font-family: sans-serif;
+}
+
+.cont_header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 67vw;
+    margin: 0 auto;
+}
+
+.cont_header h1 {
+    line-height: 1.67;
+    text-align: center;
+    color: #35465d;
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.cont_header h2 {
+    line-height: 1.53;
+    text-align: center;
+    color: #35465d;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.cont_header h3 {
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    line-height: 1.2;
+    margin-top: 0;
+    font-size: 1.75rem;
+}
+
+.cont_header p {
+    margin: 1rem 0;
+    margin-left: auto;
+}
+
+.gender-box {
+    display: flex;
+    margin-top: 20px;
+}
+
+.gender-header p {
+    line-height: 53px;
+    padding: 0 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.gender-icon label {
+    cursor: pointer;
+    display: inline-block;
+    width: 90px;
+    height: 41px;
+    box-shadow: 0 0 0 8px #e5e9ea inset;
+    border-radius: 30px;
+    position: relative;
+}
+
+.file-upload {
+    padding: 15% 3%;
+    margin: 0 auto;
+    border-radius: 10px;
+    border: solid 1.5px #f6f7fa;
+    background-color: #f6f7fa;
+    max-width: 67vw;
+    max-height: 1140px;
+    margin-top: 30px;
+}
+
+.file-upload-btn {
+    width: 100%;
+    margin: 0;
+    color: #fff;
+    background: #1fb264;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    border-bottom: 4px solid #15824b;
+    transition: all 0.2s ease;
+    outline: none;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.file-upload-btn:hover {
+    background: #a1c6dd;
+    color: #ffffff;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.file-upload-btn:active {
+    border: 0;
+    transition: all 0.2s ease;
+}
+
+.file-upload-content {
+    display: none;
+    text-align: center;
+}
+
+.file-upload-input {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.image-upload-wrap {
+    width: 60%;
+    margin: 0 auto;
+    position: relative;
+    object-fit: contain;
+    border-radius: 10px;
+    border: dashed 1.5px #35465d;
+    background-color: #ffffff;
+    height: 400px;
+    max-height: 100%;
+}
+
+.image-dropping,
+.image-upload-wrap:hover {
+    background-color: #a1c6dd;
+    border: 4px dashed #ffffff;
+}
+
+.image-title-wrap {
+    padding: 0 15px 15px 15px;
+    color: #222;
+    margin-top: 30px;
+}
+
+button.reupload-image:hover {
+    cursor: pointer;
+}
+
+.drag-text {
+    text-align: center;
+}
+
+.drag-text img {
+    width: 20%;
+    padding-top: 3rem;
+    margin-top: 3rem;
+}
+
+.drag-text h3 {
+    width: 58%;
+    font-size: 1.5rem;
+    line-height: 1.53;
+    text-align: center;
+    color: #35465d;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+.file-upload-image {
+    max-height: 60%;
+    max-width: 60%;
+    margin: auto;
+    padding: 10px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+h3 {
+    text-align: center;
+}
+
+input#gender {
+    display: none;
+}
+
+label {
+    cursor: pointer;
+    display: inline-block;
+    width: 90px;
+    height: 41px;
+    box-shadow: 0 0 0 8px #e5e9ea inset;
+    border-radius: 30px;
+    position: relative;
+}
+
+.gender-icon-box {
+    display: flex;
+    align-items: center;
+}
+
+.knob {
+    position: absolute;
+    width: 41px;
+    top: 0;
+    left: 0;
+    height: 41px;
+    border-radius: 50%;
+    box-shadow: 0 0 0 8px #f470a7 inset;
+    background-color: #fbd4e6;
+    transition: 0.3s;
+}
+
+.knob > i {
+    position: absolute;
+    width: 4px;
+    height: 18px;
+    top: 100%;
+    background-color: #f470a7;
+    left: calc(50% - 2px);
+}
+
+.knob > i:before,
+.knob > i:after {
+    width: 6px;
+    position: absolute;
+    top: 42%;
+    content: "";
+    height: 4px;
+    background-color: #f470a7;
+}
+
+.knob > i:before {
+    left: 4px;
+}
+.knob > i:after {
+    left: -6px;
+}
+
+input:checked + label > .knob {
+    box-shadow: 0 0 0 8px #a1c6dd inset;
+    background-color: #e2ecf4;
+    transform: translateX(50px) rotate(-140deg);
+}
+
+input:checked + label > .knob > i {
+    background-color: #a1c6dd;
+}
+
+input:checked + label > .knob > i:after,
+input:checked + label > .knob > i:before {
+    background-color: #a1c6dd;
+}
+
+input:checked + label > .knob > i:after {
+    top: 29px;
+    width: 24px;
+    left: -14px;
+    transform: rotate(45deg);
+}
+input:checked + label > .knob > i:before {
+    top: 26px;
+    width: 24px;
+    left: 0;
+    transform: rotate(134deg);
+}
+
+/* Add styles for progress bars */
+/* Styles for label and progress bar container */
+.label-and-progress {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* Style for the text label */
+.label-text {
+    margin-right: 10px;
+    flex-shrink: 0; /* Prevent the label from shrinking */
+    width: 150px; /* Adjust the width as needed */
+    font-weight: bold;
+
+}
+
+/* Style for the progress bar background */
+.progress-background {
+    width: 70%; /* Adjust the width as needed */
+
+    border-radius: 10px;
+    overflow: hidden;
+    height: 2rem
+}
+
+.progress-bar {
+    height: 2rem;
+    border-radius: 10px;
+    text-align: right;
+    padding-right: 10px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    transition: width 0.5s;
+}
+
+.progress-background.맨체스터-시티 {
+    background-color: rgba( 108, 171, 221, 0.2);
+}
+
+.progress-bar.맨체스터-시티 {
+    background-color: rgba( 108, 171, 221, 1);
+}
+
+.progress-background.리버풀 {
+    background-color: rgba( 200, 16, 46, 0.2);
+}
+
+.progress-bar.리버풀 {
+    background-color: rgba( 200, 16, 46, 1);
+}
+
+.progress-background.토트넘 {
+    background-color: rgba( 19, 34, 87, 0.2);
+}
+
+.progress-bar.토트넘 {
+    background-color: rgba( 19, 34, 87, 1);
+}
+
+.progress-background.맨체스터-유나이티드 {
+    background-color: rgba( 218, 41, 28, 0.2);
+}
+
+.progress-bar.맨체스터-유나이티드 {
+    background-color: rgba( 218, 41, 28, 1);
+}
+
+.progress-background.아스날 {
+    background-color: rgba( 239, 1, 7, 0.2);
+}
+
+.progress-bar.아스날 {
+    background-color: rgba( 239, 1, 7, 1);
+}
+
+/* Style for the actual progress bar */
+
+
+/* Add styles for the loading indicator */
+.loading-indicator {
+    /*display: block; !* Initially hidden *!*/
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 40px;
+}
+
+.reupload-image {
+    border-radius: 40px;
+    border: solid 1.5px #35465d;
+    background-color: #35465d;
+}
+
+.reupload-image span {
+    display: block;
+    font-size: 1.5rem;
+    text-align: center;
+    color: #ffffff;
+    padding: 4px 15px;
+    line-height: inherit;
+    font-weight: bold;
+}

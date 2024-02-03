@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>스포츠코디</title>
+    <link href="style.css" rel="stylesheet"/>
+    <link href="nomalrize.css" rel="stylesheet">
+</head>
+<body>
+<header class="cont_header">
+    <h1>스포츠 코디</h1>
+    <h2>내 사진으로 보는 인공지능 코디 추천</h2>
+    <h3>내 얼굴과 어울리는 축구 유니폼은?</h3>
+    <p>ref: Jocoding / made by 송재훈</p>
+
+    <section class="gender-header">
+        <h3>성별을 선택하세요</h3>
+        <div class="gender-box">
+            <p>여자</p>
+            <div class="gender-icon-box">
+                <input type="checkbox" id="gender" class="gender-icon">
+                <label for="gender">
+                    <span class="knob"><i></i></span>
+                </label>
+            </div>
+            <p>남자</p>
+        </div>
+    </section>
+</header>
+<script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+<div class="file-upload">
+    <div class="image-upload-wrap" onclick="$('.file-upload-input').trigger('click')">
+        <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*"/>
+        <div class="drag-text">
+            <img src="upload.svg" alt="업로드이미지">
+            <h3>내 사진을 올려놓거나 눌러서 업로드해보세요!</h3>
+        </div>
+    </div>
+    <div class="file-upload-content">
+        <img class="file-upload-image" id='face-image' src="#" alt="your image"/>
+        <p class="resultMessage"></p>
+        <!-- Add a loading indicator -->
+        <div id="loading-indicator" class="loading-indicator">Loading...</div>
+        <div id="progress-container"></div>
+        <div class="image-title-wrap">
+            <button type="button" onclick="startOver()" class="reupload-image">
+                <span>다른 사진으로 재시도</span>
+            </button>
+        </div>
+    </div>
+</div>
+<!-- Add a container for progress bars -->
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.8.5"></script> <!-- Updated TensorFlow.js version -->
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+<script>
+
+    let model, maxPredictions;
+
+    async function init() {
+        const URL = "https://teachablemachine.withgoogle.com/models/LrFz7RHJu/";
+        const modelURL = URL + "model.json";
+        const metadataURL = URL + "metadata.json";
+        // Load the model and metadata
+        model = await tmImage.load(modelURL, metadataURL);
+        maxPredictions = model.getTotalClasses();
+        predict(); // Call predict after initialization
+    }
+
+    async function predict() {
+        $('#loading-indicator').show();
+
+        var image = document.getElementById("face-image")
+        const prediction = await model.predict(image, false);
+        prediction.sort((a, b) => parseFloat(b.probability) - parseFloat(a.probability));
+        let resultMessage;
+        switch (prediction[0].className) {
+            case "토트넘":
+                resultMessage = "토트넘"
+                break;
+            case "아스날":
+                resultMessage = "아스날"
+                break;
+            case "맨체스터 시티":
+                resultMessage = "맨체스터 시티"
+                break;
+            case "맨체스터 유나이티드":
+                resultMessage = "맨체스터 유나이티드"
+                break;
+            case "리버풀":
+                resultMessage = "리버풀"
+                break;
+            default:
+                resultMessage = "알 수 없음"
+        }
+        $('.resultMessage').html(resultMessage);
+        document.getElementById("progress-container").innerHTML = "";
+        prediction.forEach((p) => {
+            const classNameWithoutSpaces = p.className.replace(/\s/g, "-").toLowerCase();
+
+            const labelAndProgress = document.createElement("div");
+            labelAndProgress.classList.add("label-and-progress", classNameWithoutSpaces);
+
+            const labelText = document.createElement("div");
+            labelText.classList.add("label-text", classNameWithoutSpaces);
+            labelText.innerText = p.className;
+
+            const progressBackground = document.createElement("div");
+            progressBackground.classList.add("progress-background", classNameWithoutSpaces);
+
+            const progressBar = document.createElement("div");
+            progressBar.classList.add("progress-bar", classNameWithoutSpaces);
+            progressBar.style.width = `${p.probability.toFixed(2) * 100}%`;
+            progressBar.innerText = `${(p.probability.toFixed(2) * 100).toFixed(0)}%`;
+
+            labelAndProgress.appendChild(labelText);
+            progressBackground.appendChild(progressBar);
+            labelAndProgress.appendChild(progressBackground);
+
+            document.getElementById("progress-container").appendChild(labelAndProgress);
+        });
+        $('#loading-indicator').hide(); // Hide loading indicator after prediction
+    }
+
+    function startOver() {
+        var oldInput = $('.file-upload-input');
+        var newInput = oldInput.clone(true);
+        newInput.on('change', function () {
+            readURL(this);
+        });
+        oldInput.replaceWith(newInput);
+        $('.file-upload-content').hide();
+        $('.image-upload-wrap').show();
+        document.getElementById('label-container').innerHTML = '';
+        document.getElementById('progress-container').innerHTML = '';
+    }
+
+    $(document).ready(function () {
+        $('.image-upload-wrap').click(function (event) {
+            if (event.target !== $('.file-upload-input')[0]) {
+                $('.file-upload-input').trigger('click');
+            }
+        });
+
+        $('.file-upload-input').on('change', function () {
+            readURL(this);
+            init(); // Initialize the model when a new image is uploaded
+        });
+
+        $('.image-upload-wrap').on('dragover', function () {
+            $(this).addClass('image-dropping');
+        }).on('dragleave', function () {
+            $(this).removeClass('image-dropping');
+        });
+    });
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            $('#loading-indicator').show();
+            reader.onload = function (e) {
+                $('#face-image').attr('src', e.target.result);
+                $('.image-upload-wrap').hide();
+                $('.file-upload-content').show();
+                // $('#loading-indicator').hide();
+            };
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            removeUpload();
+        }
+    }
+
+    function removeUpload() {
+        startOver();
+    }
+</script>
+</body>
+</html>
