@@ -6,6 +6,19 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="naver-site-verification" content="d1f3f1c035f6a6a2ffb9fb126270e747312f23bd" />
+    <meta property="og:title" content="스포츠 코디">
+    <meta property="og:description" content="Add description here">
+    <meta property="og:image" content="https://your-website.com/og-image.png">
+    <meta property="og:url" content="https://your-website.com">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WHRC5C0Y77"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-WHRC5C0Y77');
+    </script>
     <title>스포츠코디</title>
     <link href="style.css" rel="stylesheet"/>
     <link href="nomalrize.css" rel="stylesheet">
@@ -32,7 +45,7 @@
     </section>
 </header>
 <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-
+<main>
 <div class="file-upload">
     <div class="image-upload-wrap" onclick="$('.file-upload-input').trigger('click')">
         <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*"/>
@@ -54,6 +67,7 @@
         </div>
     </div>
 </div>
+</main>
 <!-- Add a container for progress bars -->
 
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.8.5"></script> <!-- Updated TensorFlow.js version -->
