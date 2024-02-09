@@ -1,0 +1,3 @@
+User-agent: *
+Allow:/
+sitemap:https://sportsstyle.site/sitemap.xml
